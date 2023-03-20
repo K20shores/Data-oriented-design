@@ -61,6 +61,7 @@ std::chrono::duration<long, std::nano> fast(int N = 10000) {
 int main(int argv, char** argc){
   int N = 10;
   int n_iter = 4;
+  int start = 2;
 
   if (argv == 2){
       n_iter = std::stoi(argc[1]);
@@ -68,12 +69,18 @@ int main(int argv, char** argc){
 
   std::vector<double> ns;
   std::vector<double> speedup;
-  for(int i = 0; i < n_iter; ++i)
+  for(int i = start; i < start + n_iter; ++i)
   {
       auto n = std::pow(N, i);
       ns.push_back(n);
       auto slow_time = slow(n);
       auto fast_time = fast(n);
+      speedup.push_back(double(slow_time.count()) / double(fast_time.count()));
+
+      n *= 5;
+      ns.push_back(n);
+      slow_time = slow(n);
+      fast_time = fast(n);
       speedup.push_back(double(slow_time.count()) / double(fast_time.count()));
   }
 

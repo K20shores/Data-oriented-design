@@ -15,4 +15,4 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 include(cmake/plotter_target.cmake)
 
 # executables
-add_subdirectory(example1)
+add_subdirectory(contiguous_arrays)
