@@ -1,0 +1,3 @@
+[submodule "libs/asciiplotter"]
+	path = libs/asciiplotter
+	url = https://github.com/joehood/asciiplotter.git

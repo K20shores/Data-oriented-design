@@ -2,6 +2,7 @@
 #include <chrono>
 #include <iostream>
 #include <cmath>
+#include "asciiplotter.h"
 
 double save = 0;
 
@@ -52,7 +53,7 @@ std::chrono::duration<long, std::nano> fast(int N = 10000) {
 
   save += sum;
 
-  delete points;
+  delete[] points;
 
   return std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
 }
@@ -65,16 +66,19 @@ int main(int argv, char** argc){
       n_iter = std::stoi(argc[1]);
   }
 
-  std::vector<std::pair<int, int>> times;
+  std::vector<double> ns;
+  std::vector<double> speedup;
   for(int i = 0; i < n_iter; ++i)
   {
-      std::cout << std::pow(N, i) << std::endl;
-      auto slow_time = slow(std::pow(N, i));
-      auto fast_time = fast(std::pow(N, i));
-      std::cout << "slow: " << slow_time.count() << std::endl;
-      std::cout << "fast: " << fast_time.count() << std::endl;
-      std::cout << "speedup: " << (double)slow_time.count() / (double)fast_time.count() << std::endl;
-      times.push_back(std::make_pair(slow_time.count(), fast_time.count()));
+      auto n = std::pow(N, i);
+      ns.push_back(n);
+      auto slow_time = slow(n);
+      auto fast_time = fast(n);
+      speedup.push_back(double(slow_time.count()) / double(fast_time.count()));
   }
-  std::cout << save << std::endl;
+
+  AsciiPlotter plotter("speedup", 120, 20);
+
+  plotter.addPlot(ns, speedup, "Speedup", 'x');
+  plotter.show();
 }

@@ -1,0 +1,9 @@
+add_library(plotter)
+target_sources(plotter
+  PRIVATE
+    libs/asciiplotter/src/asciiplotter.cpp
+)
+target_include_directories(plotter
+  PUBLIC
+    libs/asciiplotter/src
+)
