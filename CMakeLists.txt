@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 # dependencies
-include(cmake/plotter_target.cmake)
+include(cmake/matplot++.cmake)
 
 # executables
 add_subdirectory(contiguous_arrays)

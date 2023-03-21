@@ -2,7 +2,7 @@
 #include <chrono>
 #include <iostream>
 #include <cmath>
-#include "asciiplotter.h"
+#include <matplot/matplot.h>
 
 double save = 0;
 
@@ -84,8 +84,9 @@ int main(int argv, char** argc){
       speedup.push_back(double(slow_time.count()) / double(fast_time.count()));
   }
 
-  AsciiPlotter plotter("speedup", 120, 20);
-
-  plotter.addPlot(ns, speedup, "Speedup", 'x');
-  plotter.show();
+  matplot::semilogx(ns, speedup, "-o");
+  matplot::title("Contiguous arrays vs pointers");
+  matplot::xlabel("Number of array elements");
+  matplot::ylabel("Speedup");
+  matplot::show();
 }
